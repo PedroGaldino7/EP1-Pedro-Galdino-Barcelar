@@ -33,11 +33,10 @@ public class Main {
                     String cpfPaciente = sc.next();
                     System.out.print("Idade: ");
                     int idadePaciente = sc.nextInt();
-                    Paciente paciente = new Paciente(nomePaciente, cpfPaciente, idadePaciente);
 
-                        Paciente novoPaciente = new Paciente(nomePaciente, cpfPaciente, idadePaciente);
-                        pacientes.add(novoPaciente); // 👈 agora fica salvo
-                        System.out.println("Paciente cadastrado com sucesso!");
+                    Paciente novoPaciente = new Paciente(nomePaciente, cpfPaciente, idadePaciente);
+                    pacientes.add(novoPaciente); // 👈 agora fica salvo
+                    System.out.println("Paciente cadastrado com sucesso!");
                     break;
                 case 2:
                     System.out.println("Cadastrar médico:");
@@ -51,11 +50,10 @@ public class Main {
                     String especialidade = sc.next();
                     System.out.print("CRM: ");
                     String crm = sc.next();
-                    Medico medico = new Medico(nomeMedico, cpfMedico, idadeMedico, especialidade, crm);
-
-                        Medico novoMedico = new Medico(nomeMedico, cpfMedico, idadeMedico, especialidade, crm);
-                        medicos.add(novoMedico); // 👈 agora fica salvo
-                        System.out.println("Médico cadastrado com sucesso!");
+                    
+                    Medico novoMedico = new Medico(nomeMedico, cpfMedico, idadeMedico, especialidade, crm);
+                    medicos.add(novoMedico); // 👈 agora fica salvo
+                    System.out.println("Médico cadastrado com sucesso!");
                     break;
                 case 3:
                     // chamar método para agendar consulta
