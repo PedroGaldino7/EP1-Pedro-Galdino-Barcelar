@@ -28,7 +28,7 @@ public class Main {
             System.out.println("1. Cadastrar paciente");
             System.out.println("2. Cadastrar médico");
             System.out.println("3. Agendar consulta");
-            System.out.println("4. Listar relatórios");
+            System.out.println("4. Teste aqui para receber cpf");
             System.out.println("5. Listar pacientes");
             System.out.println("6. Listar médicos");
             System.out.println("0. Sair");
@@ -104,7 +104,16 @@ public class Main {
                 case 4:
                     limparTela();
 
-                    // relatórios
+                    System.out.print("Digite o CPF para busca: ");
+                    String cpfInput = sc.next();
+                    sc.nextLine(); // Limpa o buffer
+
+                    for (Paciente p : pacientes) {
+                        if (p.getCpf().equals(cpfInput)) {
+                            System.out.println("Paciente encontrado: " + p.getNome() + ", Idade: " + p.getIdade());
+                            break;
+                        }
+                    }
 
                     pausa(sc);
                     break;
