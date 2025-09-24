@@ -41,24 +41,36 @@ public class Main {
 
                     System.out.println("Cadastrar paciente:");
 
-                    System.out.print("Nome: ");
-                    String nomePaciente = sc.next();
                     sc.nextLine(); // Limpa o buffer
+                    System.out.print("Nome: ");
+                    String nomePaciente = sc.nextLine();
+                    
                     
                     System.out.print("CPF: ");
                     String cpfPaciente = sc.next();
                     sc.nextLine(); // Limpa o buffer
 
-                    System.out.print("Idade: ");
-                    int idadePaciente = sc.nextInt();
-                    sc.nextLine(); // Limpa o buffer
+                    boolean cpfExiste = false;
+                    for (Paciente p : pacientes) {
+                        if (p.getCpf().equals(cpfPaciente)) {
+                            cpfExiste = true;
+                            break;
+                        }
+                    }
+                    if (cpfExiste) {
+                        System.out.println("Erro: CPF já cadastrado.");
+                        pausa(sc);
+                        break; // sai do case 1
+                    }else{ 
+                            System.out.print("Idade: ");
+                            int idadePaciente = sc.nextInt();
+                            sc.nextLine(); // Limpa o buffer
 
-                    Paciente novoPaciente = new Paciente(nomePaciente, cpfPaciente, idadePaciente);
-                    pacientes.add(novoPaciente); // 👈 agora fica salvo
-                    System.out.println("\nPaciente cadastrado com sucesso!");
-
+                            Paciente novoPaciente = new Paciente(nomePaciente, cpfPaciente, idadePaciente);
+                            pacientes.add(novoPaciente); // 👈 agora fica salvo
+                            System.out.println("\nPaciente cadastrado com sucesso!");
+                    }
                     pausa(sc);
-
                     break;
 
                 case 2:
