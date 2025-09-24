@@ -1,3 +1,8 @@
+//Quando for compilar precisa colocar nessa ordem no terminal:
+//javac *.java
+//javac -encoding UTF-8 Main.java
+//java Main
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -25,12 +30,9 @@ public class Main {
         do {
             limparTela();
             System.out.println("=== Sistema Hospitalar ===");
-            System.out.println("1. Cadastrar paciente");
-            System.out.println("2. Cadastrar médico");
-            System.out.println("3. Agendar consulta");
-            System.out.println("4. Teste aqui para receber cpf");
-            System.out.println("5. Listar pacientes");
-            System.out.println("6. Listar médicos");
+            System.out.println("1. Cadastros");
+            System.out.println("2. Agendamentos (consultas e internações)");
+            System.out.println("3. Relatórios");
             System.out.println("0. Sair");
             System.out.print("Escolha: ");
             opcao = sc.nextInt();
@@ -38,74 +40,95 @@ public class Main {
             switch (opcao) {
                 case 1:
                     limparTela();
+                    System.out.println("=== Cadastros ===");
+                    System.out.println("1. Cadastrar paciente");
+                    System.out.println("2. Cadastrar médico");
+                    System.out.println("0. Voltar");
+                    System.out.print("Escolha: ");
+                    int cadOpcao = sc.nextInt();
 
-                    System.out.println("Cadastrar paciente:");
+                    switch (cadOpcao) {
+                        case 1:
+                            limparTela();
 
-                    sc.nextLine(); // Limpa o buffer
-                    System.out.print("Nome: ");
-                    String nomePaciente = sc.nextLine();
-                    
-                    
-                    System.out.print("CPF: ");
-                    String cpfPaciente = sc.next();
-                    sc.nextLine(); // Limpa o buffer
+                            System.out.println("Cadastrar paciente:");
 
-                    boolean cpfExiste = false;
-                    for (Paciente p : pacientes) {
-                        if (p.getCpf().equals(cpfPaciente)) {
-                            cpfExiste = true;
-                            break;
-                        }
-                    }
-                    if (cpfExiste) {
-                        System.out.println("Erro: CPF já cadastrado.");
-                        pausa(sc);
-                        break; // sai do case 1
-                    }else{ 
-                            System.out.print("Idade: ");
-                            int idadePaciente = sc.nextInt();
+                            sc.nextLine(); // Limpa o buffer
+                            System.out.print("Nome: ");
+                            String nomePaciente = sc.nextLine();
+                            
+                            System.out.print("CPF: ");
+                            String cpfPaciente = sc.next();
                             sc.nextLine(); // Limpa o buffer
 
-                            Paciente novoPaciente = new Paciente(nomePaciente, cpfPaciente, idadePaciente);
-                            pacientes.add(novoPaciente); // 👈 agora fica salvo
-                            System.out.println("\nPaciente cadastrado com sucesso!");
-                    }
-                    pausa(sc);
-                    break;
+                            boolean cpfExiste = false;
+                            for (Paciente p : pacientes) {
+                                if (p.getCpf().equals(cpfPaciente)) {
+                                    cpfExiste = true;
+                                    break;
+                                }
+                            }
+                            if (cpfExiste) {
+                                System.out.println("Erro: CPF já cadastrado.");
+                                pausa(sc);
+                                break; // sai do case 1
+                            }else{ 
+                                    System.out.print("Idade: ");
+                                    int idadePaciente = sc.nextInt();
+                                    sc.nextLine(); // Limpa o buffer
+
+                                    Paciente novoPaciente = new Paciente(nomePaciente, cpfPaciente, idadePaciente);
+                                    pacientes.add(novoPaciente); // 👈 agora fica salvo
+                                    System.out.println("\nPaciente cadastrado com sucesso!");
+                            }
+                            pausa(sc);
+                            break;
+
+                        case 2:
+                            limparTela();
+
+                            System.out.println("Cadastrar médico:");
+
+                            System.out.print("Nome: ");
+                            String nomeMedico = sc.next();
+                            sc.nextLine(); // Limpa o buffer
+
+                            System.out.print("CPF: ");
+                            String cpfMedico = sc.next();
+                            sc.nextLine(); // Limpa o buffer
+
+                            cpfExiste = false;
+                            for (Medico m : medicos) {
+                                if (m.getCpf().equals(cpfMedico)) {
+                                    cpfExiste = true;
+                                    break;
+                                }
+                            }
+
+                            if (cpfExiste) {
+                                System.out.println("Erro: CPF já cadastrado.");
+                                pausa(sc);
+                                break; // sai do case 2
+                            } else {
+                                System.out.print("Idade: ");
+                                int idadeMedico = sc.nextInt();
+                                sc.nextLine(); // Limpa o buffer
+
+                                System.out.print("Especialidade: ");
+                                String especialidade = sc.nextLine();
+
+                                System.out.print("CRM: ");
+                                String crm = sc.nextLine();
+
+                                Medico novoMedico = new Medico(nomeMedico, cpfMedico, idadeMedico, especialidade, crm);
+                                medicos.add(novoMedico); // 👈 agora fica salvo
+                                System.out.println("\nMédico cadastrado com sucesso!");
+                                pausa(sc);
+                            }
+                            break;
+                        }
 
                 case 2:
-                    limparTela();
-
-                    System.out.println("Cadastrar médico:");
-
-                    System.out.print("Nome: ");
-                    String nomeMedico = sc.next();
-                    sc.nextLine(); // Limpa o buffer
-
-                    System.out.print("CPF: ");
-                    String cpfMedico = sc.next();
-                    sc.nextLine(); // Limpa o buffer
-
-                    System.out.print("Idade: ");
-                    int idadeMedico = sc.nextInt();
-                    sc.nextLine(); // Limpa o buffer
-
-                    System.out.print("Especialidade: ");
-                    String especialidade = sc.next();
-                    sc.nextLine(); // Limpa o buffer
-
-                    System.out.print("CRM: ");
-                    String crm = sc.next();
-                    sc.nextLine(); // Limpa o buffer
-                    
-                    Medico novoMedico = new Medico(nomeMedico, cpfMedico, idadeMedico, especialidade, crm);
-                    medicos.add(novoMedico); // 👈 agora fica salvo
-                    System.out.println("\nMédico cadastrado com sucesso!");
-
-                    pausa(sc);
-
-                    break;
-                case 3:
                     limparTela();
                     
                     // chamar método para agendar consulta
@@ -113,45 +136,42 @@ public class Main {
                     pausa(sc);
                     break;
 
-                case 4:
+                case 3:
                     limparTela();
 
-                    System.out.print("Digite o CPF para busca: ");
-                    String cpfInput = sc.next();
-                    sc.nextLine(); // Limpa o buffer
-
-                    for (Paciente p : pacientes) {
-                        if (p.getCpf().equals(cpfInput)) {
-                            System.out.println("Paciente encontrado: " + p.getNome() + ", Idade: " + p.getIdade());
-                            break;
+                        System.out.println("=== Relatórios ===");
+                        System.out.println("1. Relatório dos pacientes");
+                        System.out.println("2. Relatório dos médicos");
+                        System.out.println("0. Voltar");
+                        System.out.print("Escolha: ");
+                        int relOpcao = sc.nextInt();
+                        switch (relOpcao) {
+                            case 1:
+                                limparTela();
+                                System.out.println("Relatório dos pacientes:");
+                                for (Paciente p : pacientes) {
+                                    System.out.println("Nome: " + p.getNome() + ", CPF: " + p.getCpf() + ", Idade: " + p.getIdade());
+                                }
+                                sc.nextLine(); // Limpa o buffer
+                                pausa(sc);
+                                break;
+                            case 2:
+                                limparTela();
+                                System.out.println("Relatório dos médicos:");
+                                for (Medico m : medicos) {
+                                    System.out.println("Nome: " + m.getNome() + ", CPF: " + m.getCpf() + ", Idade: " + m.getIdade() + ", Especialidade: " + m.getEspecialidade() + ", CRM: " + m.getCrm());
+                                }
+                                sc.nextLine(); // Limpa o buffer
+                                pausa(sc);
+                                break;
+                            case 0:
+                                break;
+                            default:
+                                System.out.println("Opção inválida.");
+                                sc.nextLine(); // Limpa o buffer
+                                pausa(sc);
                         }
-                    }
-
-                    pausa(sc);
-                    break;
-
-                case 5:
-                    limparTela();
-
-                    System.out.println("Listar pacientes:");
-                    for (Paciente p : pacientes) {
-                        System.out.println("Nome: " + p.getNome() + ", CPF: " + p.getCpf() + ", Idade: " + p.getIdade());
-                    }
-                    sc.nextLine(); // Limpa o buffer
-
-                    pausa(sc);
-                    break;
-
-                case 6:
-                    limparTela();
-
-                    System.out.println("Listar médicos:");
-                    for (Medico m : medicos) {
-                        System.out.println("Nome: " + m.getNome() + ", CPF: " + m.getCpf() + ", Idade: " + m.getIdade() + ", Especialidade: " + m.getEspecialidade() + ", CRM: " + m.getCrm());
-                    }
-                    sc.nextLine(); // Limpa o buffer
-
-                    pausa(sc);
+                    // chamar método para gerar relatórios
                     break;
 
                 case 0:
@@ -169,5 +189,5 @@ public class Main {
         } while (opcao != 0);
 
         sc.close();
+        }
     }
-}
