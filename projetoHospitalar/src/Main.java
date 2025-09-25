@@ -1,10 +1,11 @@
 //Quando for compilar precisa colocar nessa ordem no terminal:
-//javac *.java
-//javac -encoding UTF-8 Main.java
-//java Main
+//mkdir (fiz esse antes so uma vez para criar a pasta bin dentro do src) 
+//javac -encoding UTF-8 -d bin *.java
+//java -cp bin Main
 
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 
 public class Main {
@@ -25,8 +26,9 @@ public class Main {
 
         ArrayList<Paciente> pacientes = new ArrayList<>();
         ArrayList<Medico> medicos = new ArrayList<>();
+        HashSet<String> cpfs = new HashSet<>();
 
-
+        
         do {
             limparTela();
             System.out.println("=== Sistema Hospitalar ===");
@@ -61,25 +63,19 @@ public class Main {
                             String cpfPaciente = sc.next();
                             sc.nextLine(); // Limpa o buffer
 
-                            boolean cpfExiste = false;
-                            for (Paciente p : pacientes) {
-                                if (p.getCpf().equals(cpfPaciente)) {
-                                    cpfExiste = true;
-                                    break;
-                                }
-                            }
-                            if (cpfExiste) {
+                            if (cpfs.contains(cpfPaciente)) {
                                 System.out.println("Erro: CPF já cadastrado.");
                                 pausa(sc);
                                 break; // sai do case 1
-                            }else{ 
-                                    System.out.print("Idade: ");
-                                    int idadePaciente = sc.nextInt();
-                                    sc.nextLine(); // Limpa o buffer
+                            } else {
+                                System.out.print("Idade: ");
+                                int idadePaciente = sc.nextInt();
+                                sc.nextLine(); // Limpa o buffer
 
-                                    Paciente novoPaciente = new Paciente(nomePaciente, cpfPaciente, idadePaciente);
-                                    pacientes.add(novoPaciente); // 👈 agora fica salvo
-                                    System.out.println("\nPaciente cadastrado com sucesso!");
+                                Paciente novoPaciente = new Paciente(nomePaciente, cpfPaciente, idadePaciente);
+                                pacientes.add(novoPaciente); // 👈 agora fica salvo
+                                cpfs.add(cpfPaciente);
+                                System.out.println("\nPaciente cadastrado com sucesso!");
                             }
                             pausa(sc);
                             break;
@@ -97,18 +93,11 @@ public class Main {
                             String cpfMedico = sc.next();
                             sc.nextLine(); // Limpa o buffer
 
-                            cpfExiste = false;
-                            for (Medico m : medicos) {
-                                if (m.getCpf().equals(cpfMedico)) {
-                                    cpfExiste = true;
-                                    break;
-                                }
-                            }
-
-                            if (cpfExiste) {
+                            if (cpfs.contains(cpfMedico)) {
                                 System.out.println("Erro: CPF já cadastrado.");
                                 pausa(sc);
                                 break; // sai do case 2
+
                             } else {
                                 System.out.print("Idade: ");
                                 int idadeMedico = sc.nextInt();
@@ -122,12 +111,12 @@ public class Main {
 
                                 Medico novoMedico = new Medico(nomeMedico, cpfMedico, idadeMedico, especialidade, crm);
                                 medicos.add(novoMedico); // 👈 agora fica salvo
+                                cpfs.add(cpfMedico);
                                 System.out.println("\nMédico cadastrado com sucesso!");
                                 pausa(sc);
                             }
                             break;
                         }
-
                 case 2:
                     limparTela();
                     
