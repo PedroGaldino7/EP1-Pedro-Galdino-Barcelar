@@ -6,6 +6,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 
 public class Main {
@@ -21,13 +22,14 @@ public class Main {
     }
 
     public static void main(String[] args) {
+
+        
         Scanner sc = new Scanner(System.in);
         int opcao;
 
         ArrayList<Paciente> pacientes = new ArrayList<>();
-        ArrayList<Medico> medicos = new ArrayList<>();
+        List<Medico> medicos = MedicoDAO.carregar();
         HashSet<String> cpfs = new HashSet<>();
-
         
         do {
             limparTela();
@@ -109,8 +111,8 @@ public class Main {
                                 System.out.print("CRM: ");
                                 String crm = sc.nextLine();
 
-                                Medico novoMedico = new Medico(nomeMedico, cpfMedico, idadeMedico, especialidade, crm);
-                                medicos.add(novoMedico); // 👈 agora fica salvo
+                                medicos.add(new Medico(nomeMedico, cpfMedico, idadeMedico, especialidade, crm));
+                                MedicoDAO.salvar(medicos); // salva no arquivo
                                 cpfs.add(cpfMedico);
                                 System.out.println("\nMédico cadastrado com sucesso!");
                                 pausa(sc);
