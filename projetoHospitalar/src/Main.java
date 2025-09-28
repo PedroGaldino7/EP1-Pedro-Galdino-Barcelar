@@ -27,6 +27,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         int opcao;
 
+        ArrayList<Consulta> consultas = new ArrayList<>();
         ArrayList<Paciente> pacientes = new ArrayList<>();
         List<Medico> medicos = MedicoDAO.carregar();
         HashSet<String> cpfs = new HashSet<>();
@@ -119,13 +120,76 @@ public class Main {
                             }
                             break;
                         }
+                        break;
+                        
                 case 2:
                     limparTela();
                     
-                    // chamar método para agendar consulta
+                    System.out.println("=== Agendamentos ===");
+                    System.out.println("1. Agendar consulta");
+                    System.out.println("2. Agendar internação");
+                    System.out.println("0. Voltar");
+                    System.out.print("Escolha: ");
+                    int agOpcao = sc.nextInt();
 
+                    switch (agOpcao) {
+                    
+                        case 1:
+                        limparTela();
+
+                        System.out.println("Agendar consulta:");
+
+                        if (pacientes.isEmpty()) {
+                            System.out.println("Nenhum paciente cadastrado. Cadastre um paciente primeiro.");
+                            pausa(sc);
+                            break;
+                        }
+
+                        if (medicos.isEmpty()) {
+                            System.out.println("Nenhum médico cadastrado. Cadastre um médico primeiro.");
+                            pausa(sc);
+                            break;
+                        }
+
+                        System.out.println("Pacientes disponíveis:");
+                        for (int i = 0; i < pacientes.size(); i++) {
+                            System.out.println((i + 1) + ". " + pacientes.get(i).getNome() + " (CPF: " + pacientes.get(i).getCpf() + ")");
+                        }
+                        System.out.print("Escolha o paciente (número): ");
+                        int pacIndex = sc.nextInt() - 1;
+
+                        if (pacIndex < 0 || pacIndex >= pacientes.size()) {
+                            System.out.println("Opção inválida.");
+                            pausa(sc);  
+                            break;
+                        }
+
+                        System.out.println("Médicos disponíveis:");
+                        for (int i = 0; i < medicos.size(); i++) {
+                            System.out.println((i + 1) + ". " + medicos.get(i).getNome() + " (Especialidade: " + medicos.get(i).getEspecialidade() + ")");
+                        }
+                        System.out.print("Escolha o médico (número): ");
+                        int medIndex = sc.nextInt() - 1;
+
+                        if (medIndex < 0 || medIndex >= medicos.size()) {
+                            System.out.println("Opção inválida.");
+                            pausa(sc);
+                            break;
+                        }
+
+                        sc.nextLine(); // Limpa o buffer
+                        System.out.print("Data e hora da consulta (DD/MM/AAAA HH:MM): ");
+                        String dataHora = sc.nextLine();
+
+                        Consulta novaConsulta = new Consulta(pacientes.get(pacIndex), medicos.get(medIndex), dataHora);
+                        consultas.add(novaConsulta); // 👈 agora fica salvo
+                        System.out.println("\nConsulta agendada com sucesso!");
+                    // chamar método para agendar consulta
                     pausa(sc);
                     break;
+                }
+                break;
+                
 
                 case 3:
                     limparTela();
