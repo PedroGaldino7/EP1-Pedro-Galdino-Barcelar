@@ -5,7 +5,13 @@ public class MedicoDAO {
     private static final String ARQUIVO = "medicos.txt";
 
     // Salva lista de médicos no arquivo
-    public static void salvar(List<Medico> medicos) {
+    public static void salvar(Medico medicos) {
+
+        if (VerificadorCPF.cpfExiste(medicos.getCpf())) {
+        System.out.println("Erro: CPF " + medicos.getCpf() + " já cadastrado!");
+        return; 
+}
+
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(ARQUIVO))) {
             for (Medico m : medicos) {
                 bw.write(m.toCSV());
