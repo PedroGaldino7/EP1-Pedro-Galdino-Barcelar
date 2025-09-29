@@ -5,7 +5,6 @@
 
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 
@@ -30,7 +29,6 @@ public class Main {
         List<Paciente> pacientes = PacienteDAO.carregar();
         List<Medico> medicos = MedicoDAO.carregar();
         ArrayList<Consulta> consultas = new ArrayList<>();
-        HashSet<String> cpfs = new HashSet<>();
         
         do {
             limparTela();
@@ -66,20 +64,14 @@ public class Main {
                             String cpfPaciente = sc.next();
                             sc.nextLine(); // Limpa o buffer
 
-                            if (cpfs.contains(cpfPaciente)) {
-                                System.out.println("Erro: CPF já cadastrado.");
-                                pausa(sc);
-                                break; // sai do case 1
-                            } else {
                                 System.out.print("Idade: ");
                                 int idadePaciente = sc.nextInt();
                                 sc.nextLine(); // Limpa o buffer
 
                                 pacientes.add(new Paciente(nomePaciente, cpfPaciente, idadePaciente));
                                 PacienteDAO.salvar(pacientes); // salva no arquivo
-                                cpfs.add(cpfPaciente);
+                                
                                 System.out.println("\nPaciente cadastrado com sucesso!");
-                            }
                             pausa(sc);
                             break;
 
@@ -96,12 +88,6 @@ public class Main {
                             String cpfMedico = sc.next();
                             sc.nextLine(); // Limpa o buffer
 
-                            if (cpfs.contains(cpfMedico)) {
-                                System.out.println("Erro: CPF já cadastrado.");
-                                pausa(sc);
-                                break; // sai do case 2
-
-                            } else {
                                 System.out.print("Idade: ");
                                 int idadeMedico = sc.nextInt();
                                 sc.nextLine(); // Limpa o buffer
@@ -114,10 +100,8 @@ public class Main {
 
                                 medicos.add(new Medico(nomeMedico, cpfMedico, idadeMedico, especialidade, crm));
                                 MedicoDAO.salvar(medicos); // salva no arquivo
-                                cpfs.add(cpfMedico);
                                 System.out.println("\nMédico cadastrado com sucesso!");
                                 pausa(sc);
-                            }
                             break;
                         }
                         break;

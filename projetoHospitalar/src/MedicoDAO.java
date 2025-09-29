@@ -5,20 +5,30 @@ public class MedicoDAO {
     private static final String ARQUIVO = "medicos.txt";
 
     // Salva lista de médicos no arquivo
-    public static void salvar(Medico medicos) {
+// Salva apenas o último médico adicionado na lista
+    public static void salvar(List<Medico> medicos) {
+        if (medicos.isEmpty()) {
+            System.out.println("Nenhum médico para salvar.");
+            return;
+        }
 
-        if (VerificadorCPF.cpfExiste(medicos.getCpf())) {
-        System.out.println("Erro: CPF " + medicos.getCpf() + " já cadastrado!");
-        return; 
-}
+        // Pega apenas o último médico da lista
+        Medico m = medicos.get(medicos.size() - 1);
+        String cpf = m.getCpf();
 
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(ARQUIVO))) {
-            for (Medico m : medicos) {
-                bw.write(m.toCSV());
-                bw.newLine();
-            }
+        // Verifica duplicidade
+        if (VerificadorCPF.cpfExiste(cpf)) {
+            System.out.println("⚠ Erro: CPF " + cpf + " já cadastrado! Não foi salvo.");
+            return;
+        }
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(ARQUIVO, true))) {
+            bw.write(m.getNome() + ";" + cpf + ";" + m.getIdade() + ";" 
+                    + m.getEspecialidade() + ";" + m.getCrm());
+            bw.newLine();
+            System.out.println("✅ Médico " + m.getNome() + " salvo com sucesso!");
         } catch (IOException e) {
-            System.out.println("Erro ao salvar médicos: " + e.getMessage());
+            System.out.println("Erro ao salvar médico: " + e.getMessage());
         }
     }
 
