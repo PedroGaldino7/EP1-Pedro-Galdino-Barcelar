@@ -27,9 +27,9 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         int opcao;
 
-        ArrayList<Consulta> consultas = new ArrayList<>();
-        ArrayList<Paciente> pacientes = new ArrayList<>();
+        List<Paciente> pacientes = PacienteDAO.carregar();
         List<Medico> medicos = MedicoDAO.carregar();
+        ArrayList<Consulta> consultas = new ArrayList<>();
         HashSet<String> cpfs = new HashSet<>();
         
         do {
@@ -75,8 +75,8 @@ public class Main {
                                 int idadePaciente = sc.nextInt();
                                 sc.nextLine(); // Limpa o buffer
 
-                                Paciente novoPaciente = new Paciente(nomePaciente, cpfPaciente, idadePaciente);
-                                pacientes.add(novoPaciente); // 👈 agora fica salvo
+                                pacientes.add(new Paciente(nomePaciente, cpfPaciente, idadePaciente));
+                                PacienteDAO.salvar(pacientes); // salva no arquivo
                                 cpfs.add(cpfPaciente);
                                 System.out.println("\nPaciente cadastrado com sucesso!");
                             }
@@ -197,6 +197,7 @@ public class Main {
                         System.out.println("=== Relatórios ===");
                         System.out.println("1. Relatório dos pacientes");
                         System.out.println("2. Relatório dos médicos");
+                        System.out.println("3. Relatório das consultas");
                         System.out.println("0. Voltar");
                         System.out.print("Escolha: ");
                         int relOpcao = sc.nextInt();
@@ -219,7 +220,17 @@ public class Main {
                                 sc.nextLine(); // Limpa o buffer
                                 pausa(sc);
                                 break;
+                            case 3:
+                                limparTela();
+                                System.out.println("Relatório das consultas:");
+                                for (Consulta c : consultas) {
+                                    System.out.println("Paciente: " + c.getPaciente().getNome() + ", Médico: " + c.getMedico().getNome() + ", Data e Hora: " + c.getDataHora());
+                                }
+                                sc.nextLine(); // Limpa o buffer
+                                pausa(sc); 
+                                break;
                             case 0:
+
                                 break;
                             default:
                                 System.out.println("Opção inválida.");
