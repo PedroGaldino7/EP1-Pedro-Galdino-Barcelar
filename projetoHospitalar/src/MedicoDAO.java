@@ -17,8 +17,7 @@ public class MedicoDAO {
         String cpf = m.getCpf();
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(ARQUIVO, true))) {
-            bw.write(m.getNome() + "," + cpf + "," + m.getIdade() + "," 
-                    + m.getEspecialidade() + "," + m.getCrm());
+            bw.write(m.getNome() + "," + cpf + "," + m.getIdade() + "," + m.getEspecialidade() + "," + m.getCrm());
             bw.newLine();
         } catch (IOException e) {
             System.out.println("Erro ao salvar médico: " + e.getMessage());
@@ -31,7 +30,7 @@ public class MedicoDAO {
         try (BufferedReader br = new BufferedReader(new FileReader(ARQUIVO))) {
             String linha;
             while ((linha = br.readLine()) != null) {
-                medicos.add(Medico.fromCSV(linha));
+                medicos.add(Medico.fromTXT(linha));
             }
         } catch (FileNotFoundException e) {
             

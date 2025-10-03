@@ -33,7 +33,7 @@ public class Pessoa {
         this.idade = idade;
     }
 
-        public String toCSV() {
+        public String toTXT() {
         return nome + "," + cpf + "," + idade;
     }
 }

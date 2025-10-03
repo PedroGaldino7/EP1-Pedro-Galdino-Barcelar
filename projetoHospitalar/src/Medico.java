@@ -25,11 +25,11 @@ public class Medico extends Pessoa {
     }
 
     @Override
-    public String toCSV() {
-        return super.toCSV() + "," + especialidade + "," + crm;
+    public String toTXT() {
+        return super.toTXT() + "," + especialidade + "," + crm;
     }
 
-    public static Medico fromCSV(String linha) {
+    public static Medico fromTXT(String linha) {
         String[] partes = linha.split(",");
         return new Medico(
             partes[0],

@@ -4,7 +4,6 @@
 //java -cp bin Main
 
 import java.util.Scanner;
-import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -30,7 +29,7 @@ public class Main {
 
         List<Paciente> pacientes = PacienteDAO.carregar();
         List<Medico> medicos = MedicoDAO.carregar();
-        ArrayList<Consulta> consultas = new ArrayList<>();
+        List<Consulta> consultas = ConsultaDAO.carregar(pacientes, medicos);
         
         do {
             limparTela();
@@ -204,6 +203,7 @@ public class Main {
 
                         if (!conflito) {
                             consultas.add(new Consulta(pacientes.get(pacIndex), medicos.get(medIndex),dataHora));
+                            ConsultaDAO.salvar(consultas);
                             System.out.println("\nConsulta agendada com sucesso!");
                             pausa(sc);
                             break;

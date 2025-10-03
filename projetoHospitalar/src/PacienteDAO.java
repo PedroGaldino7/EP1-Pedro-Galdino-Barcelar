@@ -8,7 +8,7 @@ public class PacienteDAO {
     public static void salvar(List<Paciente> pacientes) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(ARQUIVO))) {
             for (Paciente p : pacientes) {
-                bw.write(p.toCSV());
+                bw.write(p.toTXT());
                 bw.newLine();
             }
         } catch (IOException e) {
@@ -22,7 +22,7 @@ public class PacienteDAO {
         try (BufferedReader br = new BufferedReader(new FileReader(ARQUIVO))) {
             String linha;
             while ((linha = br.readLine()) != null) {
-                pacientes.add(Paciente.fromCSV(linha));
+                pacientes.add(Paciente.fromTXT(linha));
             }
         } catch (FileNotFoundException e) {
             

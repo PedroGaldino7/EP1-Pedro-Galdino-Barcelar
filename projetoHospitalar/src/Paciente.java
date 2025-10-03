@@ -23,11 +23,11 @@ public class Paciente extends Pessoa {
     }
 
         @Override
-        public String toCSV() {
-        return super.toCSV();
+        public String toTXT() {
+        return super.toTXT();
     }
 
-    public static Paciente fromCSV(String linha) {
+    public static Paciente fromTXT(String linha) {
         String[] partes = linha.split(",");
         return new Paciente(
             partes[0],
