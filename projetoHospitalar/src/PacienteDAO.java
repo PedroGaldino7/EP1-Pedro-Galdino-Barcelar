@@ -25,10 +25,20 @@ public class PacienteDAO {
                 pacientes.add(Paciente.fromCSV(linha));
             }
         } catch (FileNotFoundException e) {
-            System.out.println("Arquivo não encontrado, criando novo...");
+            
         } catch (IOException e) {
             System.out.println("Erro ao carregar Pacientes: " + e.getMessage());
         }
         return pacientes;
+    }
+
+        public static boolean existeCpf(String cpf) {
+        List<Paciente> pacientes = carregar();
+        for (Paciente p : pacientes) {
+            if (p.getCpf().equals(cpf)) {
+                return true; // Já existe
+            }
+        }
+        return false; // Não existe
     }
 }

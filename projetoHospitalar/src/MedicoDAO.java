@@ -5,7 +5,7 @@ public class MedicoDAO {
     private static final String ARQUIVO = "medicos.txt";
 
     // Salva lista de médicos no arquivo
-// Salva apenas o último médico adicionado na lista
+
     public static void salvar(List<Medico> medicos) {
         if (medicos.isEmpty()) {
             System.out.println("Nenhum médico para salvar.");
@@ -16,15 +16,9 @@ public class MedicoDAO {
         Medico m = medicos.get(medicos.size() - 1);
         String cpf = m.getCpf();
 
-        // Verifica duplicidade
-        if (VerificadorCPF.cpfExiste(cpf)) {
-            System.out.println("⚠ Erro: CPF " + cpf + " já cadastrado! Não foi salvo.");
-            return;
-        }
-
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(ARQUIVO, true))) {
-            bw.write(m.getNome() + ";" + cpf + ";" + m.getIdade() + ";" 
-                    + m.getEspecialidade() + ";" + m.getCrm());
+            bw.write(m.getNome() + "," + cpf + "," + m.getIdade() + "," 
+                    + m.getEspecialidade() + "," + m.getCrm());
             bw.newLine();
             System.out.println("✅ Médico " + m.getNome() + " salvo com sucesso!");
         } catch (IOException e) {
@@ -41,11 +35,21 @@ public class MedicoDAO {
                 medicos.add(Medico.fromCSV(linha));
             }
         } catch (FileNotFoundException e) {
-            System.out.println("Arquivo não encontrado, criando novo...");
+            
         } catch (IOException e) {
             System.out.println("Erro ao carregar médicos: " + e.getMessage());
         }
         return medicos;
+    }
+
+    public static boolean existeCpf(String cpf) {
+        List<Medico> medicos = carregar();
+        for (Medico m : medicos) {
+            if (m.getCpf().equals(cpf)) {
+                return true; // Já existe
+            }
+        }
+        return false; // Não existe
     }
 }
 

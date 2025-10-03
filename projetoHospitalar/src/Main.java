@@ -64,6 +64,12 @@ public class Main {
                             String cpfPaciente = sc.next();
                             sc.nextLine(); // Limpa o buffer
 
+                            // Verifica se o CPF já existe
+                            if (PacienteDAO.existeCpf(cpfPaciente) || MedicoDAO.existeCpf(cpfPaciente)) {
+                                System.out.println("Erro: CPF já cadastrado.");
+                                pausa(sc);}
+                                else{
+
                                 System.out.print("Idade: ");
                                 int idadePaciente = sc.nextInt();
                                 sc.nextLine(); // Limpa o buffer
@@ -72,6 +78,7 @@ public class Main {
                                 PacienteDAO.salvar(pacientes); // salva no arquivo
                                 
                                 System.out.println("\nPaciente cadastrado com sucesso!");
+                                }
                             pausa(sc);
                             break;
 
@@ -88,6 +95,12 @@ public class Main {
                             String cpfMedico = sc.next();
                             sc.nextLine(); // Limpa o buffer
 
+                            // Verifica se o CPF já existe
+                            if (MedicoDAO.existeCpf(cpfMedico) || PacienteDAO.existeCpf(cpfMedico)) {
+                                System.out.println("Erro: CPF já cadastrado.");
+                                pausa(sc);}
+                                else{
+
                                 System.out.print("Idade: ");
                                 int idadeMedico = sc.nextInt();
                                 sc.nextLine(); // Limpa o buffer
@@ -101,6 +114,7 @@ public class Main {
                                 medicos.add(new Medico(nomeMedico, cpfMedico, idadeMedico, especialidade, crm));
                                 MedicoDAO.salvar(medicos); // salva no arquivo
                                 System.out.println("\nMédico cadastrado com sucesso!");
+                                }
                                 pausa(sc);
                             break;
                         }
