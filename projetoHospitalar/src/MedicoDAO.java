@@ -20,7 +20,6 @@ public class MedicoDAO {
             bw.write(m.getNome() + "," + cpf + "," + m.getIdade() + "," 
                     + m.getEspecialidade() + "," + m.getCrm());
             bw.newLine();
-            System.out.println("✅ Médico " + m.getNome() + " salvo com sucesso!");
         } catch (IOException e) {
             System.out.println("Erro ao salvar médico: " + e.getMessage());
         }

@@ -6,6 +6,8 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 public class Main {
@@ -67,8 +69,7 @@ public class Main {
                             // Verifica se o CPF já existe
                             if (PacienteDAO.existeCpf(cpfPaciente) || MedicoDAO.existeCpf(cpfPaciente)) {
                                 System.out.println("Erro: CPF já cadastrado.");
-                                pausa(sc);}
-                                else{
+                            }else{
 
                                 System.out.print("Idade: ");
                                 int idadePaciente = sc.nextInt();
@@ -76,8 +77,7 @@ public class Main {
 
                                 pacientes.add(new Paciente(nomePaciente, cpfPaciente, idadePaciente));
                                 PacienteDAO.salvar(pacientes); // salva no arquivo
-                                
-                                System.out.println("\nPaciente cadastrado com sucesso!");
+                                System.out.println("\nPaciente " + nomePaciente + " cadastrado com sucesso!");
                                 }
                             pausa(sc);
                             break;
@@ -98,8 +98,7 @@ public class Main {
                             // Verifica se o CPF já existe
                             if (MedicoDAO.existeCpf(cpfMedico) || PacienteDAO.existeCpf(cpfMedico)) {
                                 System.out.println("Erro: CPF já cadastrado.");
-                                pausa(sc);}
-                                else{
+                            }else{
 
                                 System.out.print("Idade: ");
                                 int idadeMedico = sc.nextInt();
@@ -113,7 +112,7 @@ public class Main {
 
                                 medicos.add(new Medico(nomeMedico, cpfMedico, idadeMedico, especialidade, crm));
                                 MedicoDAO.salvar(medicos); // salva no arquivo
-                                System.out.println("\nMédico cadastrado com sucesso!");
+                                System.out.println("\nMédico " + nomeMedico + " cadastrado com sucesso!");
                                 }
                                 pausa(sc);
                             break;
@@ -137,6 +136,7 @@ public class Main {
 
                         System.out.println("Agendar consulta:");
 
+
                         if (pacientes.isEmpty()) {
                             System.out.println("Nenhum paciente cadastrado. Cadastre um paciente primeiro.");
                             pausa(sc);
@@ -149,7 +149,9 @@ public class Main {
                             break;
                         }
 
+
                         System.out.println("Pacientes disponíveis:");
+                        limparTela();
                         for (int i = 0; i < pacientes.size(); i++) {
                             System.out.println((i + 1) + ". " + pacientes.get(i).getNome() + " (CPF: " + pacientes.get(i).getCpf() + ")");
                         }
@@ -163,6 +165,7 @@ public class Main {
                         }
 
                         System.out.println("Médicos disponíveis:");
+                        limparTela();
                         for (int i = 0; i < medicos.size(); i++) {
                             System.out.println((i + 1) + ". " + medicos.get(i).getNome() + " (Especialidade: " + medicos.get(i).getEspecialidade() + ")");
                         }
@@ -176,18 +179,37 @@ public class Main {
                         }
 
                         sc.nextLine(); // Limpa o buffer
+                        limparTela();
                         System.out.print("Data e hora da consulta (DD/MM/AAAA HH:MM): ");
-                        String dataHora = sc.nextLine();
+                        String entradaDataHora = sc.nextLine();
 
-                        Consulta novaConsulta = new Consulta(pacientes.get(pacIndex), medicos.get(medIndex), dataHora);
-                        consultas.add(novaConsulta); // 👈 agora fica salvo
-                        System.out.println("\nConsulta agendada com sucesso!");
-                    // chamar método para agendar consulta
-                    pausa(sc);
-                    break;
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+                        LocalDateTime dataHora = LocalDateTime.parse(entradaDataHora, formatter);
+
+                        boolean conflito = false;
+                        for (Consulta c : consultas) {
+                            if (c.getMedico().equals(medicos.get(medIndex)) && c.getDataHora().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")).equals(entradaDataHora)) {  
+                                System.out.println("Esse médico já tem consulta nesse horário!");
+                                conflito = true;
+                                pausa(sc);
+                                break;
+                            }
+                            if (c.getPaciente().equals(pacientes.get(pacIndex)) && c.getDataHora().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")).equals(entradaDataHora)) {  
+                                System.out.println("Esse paciente já tem consulta nesse horário!");
+                                conflito = true;
+                                pausa(sc);
+                                break;
+                            }
+                        }
+
+                        if (!conflito) {
+                            consultas.add(new Consulta(pacientes.get(pacIndex), medicos.get(medIndex),dataHora));
+                            System.out.println("\nConsulta agendada com sucesso!");
+                            pausa(sc);
+                            break;
+                        }
                 }
                 break;
-                
 
                 case 3:
                     limparTela();
@@ -222,7 +244,7 @@ public class Main {
                                 limparTela();
                                 System.out.println("Relatório das consultas:");
                                 for (Consulta c : consultas) {
-                                    System.out.println("Paciente: " + c.getPaciente().getNome() + ", Médico: " + c.getMedico().getNome() + ", Data e Hora: " + c.getDataHora());
+                                    System.out.println("Paciente: " + c.getPaciente().getNome() + ", Médico: " + c.getMedico().getNome() + ", Data e Hora: " + c.getDataHora().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
                                 }
                                 sc.nextLine(); // Limpa o buffer
                                 pausa(sc); 

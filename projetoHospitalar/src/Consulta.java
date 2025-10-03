@@ -1,9 +1,12 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Consulta {
     private Paciente paciente;
     private Medico medico;
-    private String dataHora;
+    private LocalDateTime dataHora;
 
-    public Consulta(Paciente paciente, Medico medico, String dataHora) {
+    public Consulta(Paciente paciente, Medico medico, LocalDateTime dataHora) {
         this.paciente = paciente;
         this.medico = medico;
         this.dataHora = dataHora;
@@ -17,16 +20,17 @@ public class Consulta {
         return medico;
     }
 
-    public String getDataHora() {
+    public LocalDateTime getDataHora() {
         return dataHora;
     }
 
     @Override
     public String toString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         return "Consulta{" +
-                "paciente=" + paciente.getNome() +
-                ", medico=" + medico.getNome() +
-                ", dataHora='" + dataHora + '\'' +
+                "Consulta com: " + medico.getNome() +
+                ", para: " + paciente.getNome() +
+                ", em: '" + dataHora.format(formatter) +
                 '}';
     }
 }
