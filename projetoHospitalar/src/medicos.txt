@@ -1,3 +1,2 @@
-Douglas,1234,54,Dermatologista,CRM123
-Gabriel,4321,56,Oftalmologista,CRM1223
-Brunna,1324,34,Oftalmologista,CRM432
+Douglas,321,54,Dermatologista,CRM123
+Felipe,4321,34,Oftalmologista,CRM1234

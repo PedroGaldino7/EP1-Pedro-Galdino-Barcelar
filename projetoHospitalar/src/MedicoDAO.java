@@ -4,15 +4,12 @@ import java.util.*;
 public class MedicoDAO {
     private static final String ARQUIVO = "medicos.txt";
 
-    // Salva lista de médicos no arquivo
-
     public static void salvar(List<Medico> medicos) {
         if (medicos.isEmpty()) {
             System.out.println("Nenhum médico para salvar.");
             return;
         }
 
-        // Pega apenas o último médico da lista
         Medico m = medicos.get(medicos.size() - 1);
         String cpf = m.getCpf();
 
@@ -24,7 +21,6 @@ public class MedicoDAO {
         }
     }
 
-    // Carrega lista de médicos do arquivo
     public static List<Medico> carregar() {
         List<Medico> medicos = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(ARQUIVO))) {
@@ -44,10 +40,10 @@ public class MedicoDAO {
         List<Medico> medicos = carregar();
         for (Medico m : medicos) {
             if (m.getCpf().equals(cpf)) {
-                return true; // Já existe
+                return true;
             }
         }
-        return false; // Não existe
+        return false;
     }
 }
 

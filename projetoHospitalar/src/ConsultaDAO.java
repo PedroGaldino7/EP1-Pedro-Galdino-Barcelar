@@ -7,7 +7,6 @@ public class ConsultaDAO {
     private static final String ARQUIVO = "consultas.txt";
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
-    // Salva lista completa
     public static void salvar(List<Consulta> consultas) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(ARQUIVO))) {
             for (Consulta c : consultas) {
@@ -21,7 +20,6 @@ public class ConsultaDAO {
         }
     }
 
-    // Carrega lista e reconstrói as Consultas
     public static List<Consulta> carregar(List<Paciente> pacientes, List<Medico> medicos) {
         List<Consulta> consultas = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(ARQUIVO))) {
@@ -33,7 +31,6 @@ public class ConsultaDAO {
                     String cpfMedico = partes[1];
                     LocalDateTime dataHora = LocalDateTime.parse(partes[2], formatter);
 
-                    // Acha paciente e médico pelo CPF
                     Paciente paciente = pacientes.stream()
                             .filter(p -> p.getCpf().equals(cpfPaciente))
                             .findFirst()

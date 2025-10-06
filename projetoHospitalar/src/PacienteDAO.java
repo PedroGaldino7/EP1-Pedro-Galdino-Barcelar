@@ -4,7 +4,6 @@ import java.util.*;
 public class PacienteDAO {
     private static final String ARQUIVO = "pacientes.txt";
 
-    // Salva lista de médicos no arquivo
     public static void salvar(List<Paciente> pacientes) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(ARQUIVO))) {
             for (Paciente p : pacientes) {
@@ -16,7 +15,6 @@ public class PacienteDAO {
         }
     }
 
-    // Carrega lista de médicos do arquivo
     public static List<Paciente> carregar() {
         List<Paciente> pacientes = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(ARQUIVO))) {
@@ -36,9 +34,9 @@ public class PacienteDAO {
         List<Paciente> pacientes = carregar();
         for (Paciente p : pacientes) {
             if (p.getCpf().equals(cpf)) {
-                return true; // Já existe
+                return true;
             }
         }
-        return false; // Não existe
+        return false;
     }
 }
