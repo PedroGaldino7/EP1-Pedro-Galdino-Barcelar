@@ -123,7 +123,8 @@ public class Main {
                     
                     System.out.println("=== Agendamentos ===");
                     System.out.println("1. Agendar consulta");
-                    System.out.println("2. Agendar internação");
+                    System.out.println("2. Fazer internação");
+                    System.out.println("3. Dar alta");
                     System.out.println("0. Voltar");
                     System.out.print("Escolha: ");
                     int agOpcao = sc.nextInt();
@@ -208,10 +209,11 @@ public class Main {
                             pausa(sc);
                             break;
                         }
+                        break;
 
                         case 2:
                             limparTela();
-                            System.out.println("Agendar internação:");
+                            System.out.println("Fazer internação:");
     
                         if (pacientes.isEmpty()) {
                                 System.out.println("Nenhum paciente cadastrado. Cadastre um paciente primeiro.");
@@ -247,6 +249,24 @@ public class Main {
                             String entradaDataHora = sc.nextLine();
                             DateTimeFormatter formatterInt = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
                             LocalDateTime dataEntrada = LocalDateTime.parse(entradaDataHora, formatterInt);
+                            LocalDateTime dataAtual = LocalDateTime.now();
+
+                            if (dataEntrada.isBefore(dataAtual)) {
+                                System.out.println("Erro: A data de entrada não pode ser no passado.");
+                                pausa(sc);
+                                break;
+                            }
+
+                            limparTela();
+                            System.out.println("Data provisória de Saida (DD/MM/AAAA HH:MM): ");
+                            String provisoriaDataHora = sc.nextLine();
+                            LocalDateTime dataSaidaProvisoria = LocalDateTime.parse(provisoriaDataHora, formatterInt);
+
+                            if (dataSaidaProvisoria.isBefore(dataEntrada) || dataSaidaProvisoria.isBefore(dataAtual)) {
+                                System.out.println("Erro: A data provisória de saída não pode ser antes da data de entrada ou no passado.");
+                                pausa(sc);
+                                break;
+                            }
 
                             limparTela();
                             System.out.print("Quarto: ");
@@ -262,11 +282,11 @@ public class Main {
                             System.out.print("Motivo da internação: ");
                             String motivo = sc.nextLine();
 
-                            Internacao novaInternacao = new Internacao(pacienteSelecionado, dataEntrada, null, quarto, motivo);
+                            Internacao novaInternacao = new Internacao(pacienteSelecionado, dataEntrada, dataSaidaProvisoria, null, quarto, motivo);
                             internacoes.add(novaInternacao);
                             InternacaoDAO.salvar(internacoes);
 
-                            System.out.println("\nInternação registrada com sucesso!");
+                            System.out.println("\nPaciente internado com sucesso!");
                             pausa(sc);
                             break;
 
@@ -351,15 +371,23 @@ public class Main {
                                 pausa(sc); 
                                 break;
                             
-                            case 4:
-                                limparTela();
-                                System.out.println("Relatório das internações:");
-                                for (Internacao i : internacoes) {
-                                    System.out.println("Paciente: " + i.getPaciente().getNome() + ", Data de Entrada: " + i.getDataEntrada().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) + ", Data de Saída: " + (i.getDataSaida() != null ? i.getDataSaida().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) : "Ainda internado") + ", Quarto: " + i.getQuarto() + ", Motivo: " + i.getMotivoInternacao());
-                                }
-                                sc.nextLine();
-                                pausa(sc);
-                                break;
+case 4:
+    limparTela();
+    System.out.println("Relatório das internações:");
+    for (Internacao i : internacoes) {
+        System.out.println("--------------------------------------------------");
+        System.out.println("Paciente: " + i.getPaciente().getNome());
+        System.out.println("Status: " + i.getStatus());
+        System.out.println("Data de Entrada: " + i.getDataEntrada().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
+        System.out.println("Data de Saída Provisória: " + i.getDataSaidaProvisoria().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
+        System.out.println("Quarto: " + i.getQuarto());
+        System.out.println("Motivo: " + i.getMotivoInternacao());
+        System.out.println("--------------------------------------------------\n");
+    }
+    sc.nextLine();
+    pausa(sc);
+    break;
+
                             case 0:
 
                                 break;

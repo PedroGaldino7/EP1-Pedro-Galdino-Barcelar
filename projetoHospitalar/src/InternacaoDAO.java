@@ -10,10 +10,13 @@ public class InternacaoDAO {
     public static void salvar(List<Internacao> internacoes) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(ARQUIVO))) {
             for (Internacao i : internacoes) {
+                String dataSaidaProvisoriaStr = (i.getDataSaidaProvisoria() != null) ? i.getDataSaidaProvisoria().format(FORMATTER) : "null";
                 String dataSaidaStr = (i.getDataSaida() != null) ? i.getDataSaida().format(FORMATTER) : "null";
+
                 bw.write(
                     i.getPaciente().getCpf() + "," +
                     i.getDataEntrada().format(FORMATTER) + "," +
+                    dataSaidaProvisoriaStr + "," +
                     dataSaidaStr + "," +
                     i.getQuarto() + "," +
                     i.getMotivoInternacao()
@@ -32,7 +35,7 @@ public class InternacaoDAO {
             String linha;
             while ((linha = br.readLine()) != null) {
                 String[] partes = linha.split(",");
-                if (partes.length < 5) continue;
+                if (partes.length < 6) continue;
 
                 String cpf = partes[0];
                 Paciente paciente = pacientes.stream()
@@ -43,15 +46,16 @@ public class InternacaoDAO {
                 if (paciente == null) continue;
 
                 LocalDateTime dataEntrada = LocalDateTime.parse(partes[1], FORMATTER);
-                LocalDateTime dataSaida = partes[2].equals("null") ? null : LocalDateTime.parse(partes[2], FORMATTER);
-                String quarto = partes[3];
-                String motivo = partes[4];
+                LocalDateTime dataSaidaProvisoria = partes[2].equals("null") ? null : LocalDateTime.parse(partes[2], FORMATTER);
+                LocalDateTime dataSaida = partes[3].equals("null") ? null : LocalDateTime.parse(partes[3], FORMATTER);
+                String quarto = partes[4];
+                String motivo = partes[5];
 
-                Internacao internacao = new Internacao(paciente, dataEntrada, dataSaida, quarto, motivo);
+                Internacao internacao = new Internacao(paciente, dataEntrada, dataSaidaProvisoria, dataSaida, quarto, motivo);
                 internacoes.add(internacao);
             }
         } catch (FileNotFoundException e) {
-            // Primeira vez o arquivo não existe e ai ele cria
+            // Primeira execução — arquivo ainda não existe
         } catch (IOException e) {
             System.out.println("Erro ao carregar internações: " + e.getMessage());
         }
