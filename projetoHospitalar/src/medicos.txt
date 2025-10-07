@@ -1,2 +1,0 @@
-Douglas,1234,54,Dermatologista,CRM123
-Felipe,4321,45,Oftalmologista,CRM123

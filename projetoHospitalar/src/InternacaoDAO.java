@@ -63,14 +63,33 @@ public class InternacaoDAO {
         return internacoes;
     }
 
-    public static boolean quartoOcupado(String quarto, List<Internacao> internacoes) {
-        for (Internacao i : internacoes) {
-            if (i.getQuarto().equalsIgnoreCase(quarto) && i.getDataSaida() == null) {
+public static boolean quartoOcupado(String quarto, LocalDateTime novaEntrada, LocalDateTime novaSaidaProvisoria, List<Internacao> internacoes) {
+    for (Internacao i : internacoes) {
+        if (i.getQuarto().equalsIgnoreCase(quarto)) {
+
+            if (i.getDataSaida() != null && i.getDataSaida().isBefore(novaEntrada)) {
+                continue;
+            }
+
+            LocalDateTime entradaExistente = i.getDataEntrada();
+            LocalDateTime saidaProvisoriaExistente = i.getDataSaidaProvisoria();
+
+            if (saidaProvisoriaExistente == null) {
+                saidaProvisoriaExistente = LocalDateTime.MAX;
+            }
+
+            boolean sobrepoe = 
+                (novaEntrada.isBefore(saidaProvisoriaExistente) && novaSaidaProvisoria.isAfter(entradaExistente));
+
+            if (sobrepoe && i.getDataSaida() == null) {
                 return true;
             }
         }
-        return false;
     }
+    return false;
+}
+
+
 
     public static boolean pacienteJaInternado(String cpfPaciente, List<Internacao> internacoes) {
         for (Internacao i : internacoes) {

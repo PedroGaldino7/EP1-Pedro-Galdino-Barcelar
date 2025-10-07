@@ -86,7 +86,7 @@ public class Internacao {
             LocalDateTime agora = LocalDateTime.now();
 
             if (agora.isBefore(dataEntrada)) {
-                return "Ainda não internado";
+                return "Ainda nao internado";
             } else if (dataSaida != null) {
                 return "Alta concedida";
             } else if (agora.isAfter(dataEntrada) && agora.isBefore(dataSaidaProvisoria)) {

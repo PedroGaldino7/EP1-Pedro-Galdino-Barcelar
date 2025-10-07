@@ -1,3 +1,0 @@
-Pedro,123,18
-Gabriel,234,21
-Brunna,345,32
