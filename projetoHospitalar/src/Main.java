@@ -353,7 +353,7 @@ public class Main {
                                 limparTela();
                                 System.out.println("Relatório dos pacientes:");
                                 for (Paciente p : pacientes) {
-                                    System.out.println("Nome: " + p.getNome() + ", CPF: " + p.getCpf() + ", Idade: " + p.getIdade());
+                                    System.out.println("Nome: " + p.getNome() + ", CPF: " + p.getCpf() + ", Idade: " + p.getIdade() + "\n");
                                 }
                                 sc.nextLine();
                                 pausa(sc);
@@ -363,7 +363,7 @@ public class Main {
                                 limparTela();
                                 System.out.println("Relatório dos médicos:");
                                 for (Medico m : medicos) {
-                                    System.out.println("Nome: " + m.getNome() + ", CPF: " + m.getCpf() + ", Idade: " + m.getIdade() + ", Especialidade: " + m.getEspecialidade() + ", CRM: " + m.getCrm());
+                                    System.out.println("Nome: " + m.getNome() + ", CPF: " + m.getCpf() + ", Idade: " + m.getIdade() + ", Especialidade: " + m.getEspecialidade() + ", CRM: " + m.getCrm() + "\n");
                                 }
                                 sc.nextLine();
                                 pausa(sc);
@@ -373,7 +373,7 @@ public class Main {
                                 limparTela();
                                 System.out.println("Relatório das consultas:");
                                 for (Consulta c : consultas) {
-                                    System.out.println("Paciente: " + c.getPaciente().getNome() + ", Médico: " + c.getMedico().getNome() + ", Data e Hora: " + c.getDataHora().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
+                                    System.out.println("Paciente: " + c.getPaciente().getNome() + ", Médico: " + c.getMedico().getNome() + ", Data e Hora: " + c.getDataHora().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) + "\n");
                                 }
                                 sc.nextLine();
                                 pausa(sc); 
@@ -395,7 +395,7 @@ public class Main {
                                     
                                     System.out.println("Quarto: " + i.getQuarto());
                                     System.out.println("Motivo: " + i.getMotivoInternacao());
-                                    System.out.println("--------------------------------------------------\n");
+                                    System.out.println("--------------------------------------------------");
                                 }
                                 sc.nextLine();
                                 pausa(sc);
