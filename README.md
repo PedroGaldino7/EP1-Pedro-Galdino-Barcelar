@@ -10,10 +10,10 @@ Desenvolvimento de um sistema de gerenciamento hospitalar utilizando os conceito
 
 ## Dados do Aluno
 
-- **Nome completo:** [Preencher aqui]
-- **Matrícula:** [Preencher aqui]
-- **Curso:** [Preencher aqui]
-- **Turma:** [Preencher aqui]
+- **Nome completo:** Pedro Galdino Barcelar
+- **Matrícula:** 251027460
+- **Curso:** Engenharias
+- **Turma:** T02
 
 ---
 
@@ -26,7 +26,7 @@ Desenvolvimento de um sistema de gerenciamento hospitalar utilizando os conceito
    java -cp bin Main
 
 3. **Estrutura de Pastas:**  
-   [Descrever aqui as principais pastas do projeto]
+   ![Estrutura de pastas](projetoHospitalar/img/EstruturaDePastas.png)
 
 3. **Versão do JAVA utilizada:**  
    Java 17
@@ -42,13 +42,13 @@ Desenvolvimento de um sistema de gerenciamento hospitalar utilizando os conceito
 ## Prints da Execução
 
 1. Menu Principal:  
-   ![Inserir Print 1](caminho/do/print1.png)
+   ![Menu principal](projetoHospitalar/img/Menu-principal.png)
 
 2. Cadastro de Médico:  
-   ![Inserir Print 2](caminho/do/print2.png)
+   ![Cadastro de médico](projetoHospitalar/img/Cadastro-medico.png)
 
-3. Relatório de ?:  
-   ![Inserir Print 3](caminho/do/print3.png)
+3. Relatório de medicos:  
+   ![Relatório de médicos](projetoHospitalar/img/Relatorio-medico.png)
 
 ---
 
@@ -56,13 +56,13 @@ Desenvolvimento de um sistema de gerenciamento hospitalar utilizando os conceito
 
 ## Observações (Extras ou Dificuldades)
 
-- [Espaço para o aluno comentar qualquer funcionalidade extra que implementou, dificuldades enfrentadas, ou considerações importantes.]
+- Tive dificuldades no início do projeto, devido ao fato de eu não conhecer a sintaxe da linguagem JAVA, mesmo ja sabendo a base de OO, por isso nas duas primeiras semanas me dediquei a aprender o básico da linguagem para que nas outras duas eu pudesse, com a ajuda de vídeos e IA, terminar o projeto. Creio eu ter conseguido um resultado melhor do que eu mesmo esperava, mas jo geral, foi possível concluír o que foi proposto.
 
 ---
 
 ## Contato
 
-- [Opcional: E-mail pessoal do aluno.]
+- Email: pedrogaldinob@gmail.com
 
 ---
 
