@@ -63,31 +63,31 @@ public class InternacaoDAO {
         return internacoes;
     }
 
-public static boolean quartoOcupado(String quarto, LocalDateTime novaEntrada, LocalDateTime novaSaidaProvisoria, List<Internacao> internacoes) {
-    for (Internacao i : internacoes) {
-        if (i.getQuarto().equalsIgnoreCase(quarto)) {
+    public static boolean quartoOcupado(String quarto, LocalDateTime novaEntrada, LocalDateTime novaSaidaProvisoria, List<Internacao> internacoes) {
+        for (Internacao i : internacoes) {
+            if (i.getQuarto().equalsIgnoreCase(quarto)) {
 
-            if (i.getDataSaida() != null && i.getDataSaida().isBefore(novaEntrada)) {
-                continue;
-            }
+                if (i.getDataSaida() != null && i.getDataSaida().isBefore(novaEntrada)) {
+                    continue;
+                }
 
-            LocalDateTime entradaExistente = i.getDataEntrada();
-            LocalDateTime saidaProvisoriaExistente = i.getDataSaidaProvisoria();
+                LocalDateTime entradaExistente = i.getDataEntrada();
+                LocalDateTime saidaProvisoriaExistente = i.getDataSaidaProvisoria();
 
-            if (saidaProvisoriaExistente == null) {
-                saidaProvisoriaExistente = LocalDateTime.MAX;
-            }
+                if (saidaProvisoriaExistente == null) {
+                    saidaProvisoriaExistente = LocalDateTime.MAX;
+                }
 
-            boolean sobrepoe = 
-                (novaEntrada.isBefore(saidaProvisoriaExistente) && novaSaidaProvisoria.isAfter(entradaExistente));
+                boolean sobrepoe = 
+                    (novaEntrada.isBefore(saidaProvisoriaExistente) && novaSaidaProvisoria.isAfter(entradaExistente));
 
-            if (sobrepoe && i.getDataSaida() == null) {
-                return true;
+                if (sobrepoe && i.getDataSaida() == null) {
+                    return true;
+                }
             }
         }
+        return false;
     }
-    return false;
-}
 
 
 

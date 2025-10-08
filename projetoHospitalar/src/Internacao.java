@@ -22,48 +22,48 @@ public class Internacao {
         return paciente;
     }
 
-    public Paciente setPaciente(Paciente paciente){
-        return this.paciente = paciente;
+    public void setPaciente(Paciente paciente){
+        this.paciente = paciente;
     }
 
     public LocalDateTime getDataEntrada() {
         return dataEntrada;
     }
 
-    public LocalDateTime setDataEntrada(LocalDateTime dataEntrada){
-        return this.dataEntrada = dataEntrada;
+    public void setDataEntrada(LocalDateTime dataEntrada){
+        this.dataEntrada = dataEntrada;
     }
 
     public LocalDateTime getDataSaidaProvisoria() {
         return dataSaidaProvisoria;
     }
 
-    public LocalDateTime setDataSaidaProvisoria(LocalDateTime dataSaidaProvisoria){
-        return this.dataSaidaProvisoria = dataSaidaProvisoria;
+    public void setDataSaidaProvisoria(LocalDateTime dataSaidaProvisoria){
+        this.dataSaidaProvisoria = dataSaidaProvisoria;
     }
 
     public LocalDateTime getDataSaida() {
         return dataSaida;
     }
 
-    public LocalDateTime setDataSaida(LocalDateTime dataSaida){
-        return this.dataSaida = dataSaida;
+    public void setDataSaida(LocalDateTime dataSaida){
+        this.dataSaida = dataSaida;
     }
 
     public String getQuarto() {
         return quarto;
     }
 
-    public String setQuarto(String quarto){
-        return this.quarto = quarto;
+    public void setQuarto(String quarto){
+        this.quarto = quarto;
     }
 
     public String getMotivoInternacao() {
         return motivoInternacao;
     }
 
-    public String setMotivoInternacao(String motivoInternacao){
-        return this.motivoInternacao = motivoInternacao;
+    public void setMotivoInternacao(String motivoInternacao){
+        this.motivoInternacao = motivoInternacao;
     }
 
     @Override

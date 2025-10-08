@@ -133,17 +133,17 @@ public class Main {
                     
                         case 1:
                         limparTela();
-
                         System.out.println("Agendar consulta:");
 
-
                         if (pacientes.isEmpty()) {
+                        sc.nextLine();
                             System.out.println("Nenhum paciente cadastrado. Cadastre um paciente primeiro.");
                             pausa(sc);
                             break;
                         }
 
                         if (medicos.isEmpty()) {
+                        sc.nextLine();
                             System.out.println("Nenhum médico cadastrado. Cadastre um médico primeiro.");
                             pausa(sc);
                             break;
@@ -216,6 +216,7 @@ public class Main {
                             System.out.println("Fazer internação:");
     
                         if (pacientes.isEmpty()) {
+                        sc.nextLine();
                                 System.out.println("Nenhum paciente cadastrado. Cadastre um paciente primeiro.");
                                 pausa(sc);
                                 break;
@@ -284,6 +285,7 @@ public class Main {
                             pausa(sc);
                             break;
 
+
                         case 3:
                             limparTela();
                             System.out.println("=== Dar alta ===");
@@ -294,6 +296,7 @@ public class Main {
                             }
 
                             if (internados.isEmpty()) {
+                            sc.nextLine();
                                 System.out.println("Nenhum paciente internado atualmente.");
                                 pausa(sc);
                                 break;
@@ -385,6 +388,11 @@ public class Main {
                                     System.out.println("Status: " + i.getStatus());
                                     System.out.println("Data de Entrada: " + i.getDataEntrada().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
                                     System.out.println("Data de Saída Provisória: " + i.getDataSaidaProvisoria().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
+                                    if (i.getDataSaida() != null) {
+                                        long dias = java.time.Duration.between(i.getDataEntrada(), i.getDataSaida()).toDays();
+                                        System.out.println("Tempo de internação: " + dias + " dias");
+                                    }
+                                    
                                     System.out.println("Quarto: " + i.getQuarto());
                                     System.out.println("Motivo: " + i.getMotivoInternacao());
                                     System.out.println("--------------------------------------------------\n");
